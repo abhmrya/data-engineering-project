@@ -12,8 +12,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-API_URL = 'https://fakestoreapi.com/products'
+API_URL = "https://fakestoreapi.com/products"
 RAW_DIR = Path("data/raw/products")
+
 
 def fetch_products():
     logger.info("Starting product extraction")
@@ -28,28 +29,30 @@ def fetch_products():
     data = response.json()
 
     logger.info(
-        "successfully extracted %d products",
-        len(data)
+        "Successfully extracted %d products",
+        len(data),
     )
 
     return data
 
+
 def save_raw_data(data):
-    RAW_DIR.mkdir(parents=True,
-                  exist_ok=True,
-                  )
+    RAW_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     output_file = RAW_DIR / "products.json"
 
     with output_file.open(
         "w",
-        encoding='utf-8',
-        ) as file:
-            json.dump(
-                data,
-                file,
-                indent=2,
-            )
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            data,
+            file,
+            indent=2,
+        )
 
     logger.info(
         "Raw data saved to %s",
